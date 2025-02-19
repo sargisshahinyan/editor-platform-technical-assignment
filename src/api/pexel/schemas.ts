@@ -45,6 +45,8 @@ export const PhotoSchema = z
     alt: data.alt,
   }));
 
+export type Photo = z.infer<typeof PhotoSchema>;
+
 export const PhotosListApiResponseSchema = z
   .object({
     page: z.number(),
