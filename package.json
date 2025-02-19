@@ -12,10 +12,12 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.66.7",
+    "axios": "^1.7.9",
     "modern-normalize": "^3.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "styled-components": "^6.1.15"
+    "styled-components": "^6.1.15",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.6",
