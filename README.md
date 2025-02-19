@@ -1,0 +1,1 @@
+# editor-platform-technical-assignment
