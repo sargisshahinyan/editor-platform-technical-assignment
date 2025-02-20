@@ -2,6 +2,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router";
 import { lazy } from "react";
 
+import "./App.css";
+
 const Home = lazy(() => import("./routes/Home"));
 const PhotoDetails = lazy(() => import("./routes/PhotoDetails"));
 
