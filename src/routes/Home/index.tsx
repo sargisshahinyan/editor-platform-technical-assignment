@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { ComponentRef, useEffect, useMemo, useRef } from "react";
 
 import { useGetCuratedPhotos } from "../../api/pexel/getCuratedPhotos/useGetCuratedPhotos";
 import { useMediaQueries } from "../../shared/hooks/useMediaQueries";
@@ -9,8 +9,9 @@ import { Column, Container, Image, ImageWrapper } from "./styles";
 
 export const Home = () => {
   const { isTablet, isSmallDesktop, isDesktop } = useMediaQueries();
+  const bottomElementRef = useRef<ComponentRef<"div">>(null);
 
-  const { data } = useGetCuratedPhotos({
+  const { data, isFetching, fetchNextPage } = useGetCuratedPhotos({
     perPage: 25,
   });
 
@@ -40,23 +41,49 @@ export const Home = () => {
     return generateImagesMatrix(photos, columns);
   }, [data, isTablet, isSmallDesktop, isDesktop]);
 
+  useEffect(() => {
+    if (isFetching || !bottomElementRef.current) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          void fetchNextPage();
+        }
+      },
+      {
+        rootMargin: "110px",
+      },
+    );
+
+    observer.observe(bottomElementRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [fetchNextPage, isFetching]);
+
   return (
-    <Container>
-      {photosColumns?.map((photos, index) => (
-        <Column key={index}>
-          {photos.map((photo) => (
-            <ImageWrapper key={photo.id}>
-              <Image
-                srcSet={`${photo.src.small} 768w, ${photo.src.medium} 1920w, ${photo.src.original} 2560w`}
-                src={photo.src.medium}
-                alt={photo.photographer}
-                loading="lazy"
-              />
-            </ImageWrapper>
-          ))}
-        </Column>
-      ))}
-    </Container>
+    <>
+      <Container>
+        {photosColumns?.map((photos, index) => (
+          <Column key={index}>
+            {photos.map((photo) => (
+              <ImageWrapper key={photo.id}>
+                <Image
+                  srcSet={`${photo.src.small} 768w, ${photo.src.medium} 1920w, ${photo.src.original} 2560w`}
+                  src={photo.src.medium}
+                  alt={photo.photographer}
+                  loading="lazy"
+                />
+              </ImageWrapper>
+            ))}
+          </Column>
+        ))}
+      </Container>
+      <div ref={bottomElementRef} />
+    </>
   );
 };
 
