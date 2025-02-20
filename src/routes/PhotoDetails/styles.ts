@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { PageSlot } from "../../shared/components/PageSlot";
 
 import { breakpoints } from "../../shared/data/breakpoints";
+import { Link } from "react-router";
 
 export const Container = styled(PageSlot)`
   padding-top: 2.5rem;
@@ -12,7 +13,7 @@ export const Container = styled(PageSlot)`
   }
 `;
 
-export const LogoImage = styled.img`
+export const LogoLink = styled(Link)`
   display: inline-block;
   margin-bottom: 2.25rem;
 
@@ -20,3 +21,5 @@ export const LogoImage = styled.img`
     margin-bottom: 1rem;
   }
 `;
+
+export const LogoImage = styled.img``;
