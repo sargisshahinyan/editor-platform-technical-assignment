@@ -11,7 +11,7 @@ import picsartLogo from "../../shared/assets/picsart-logo.svg";
 import { Column, Container, Image, ImagesContainer, ImageWrapper, LogoImage } from "./styles";
 
 export const Home = () => {
-  const { isTablet, isSmallDesktop, isDesktop } = useMediaQueries();
+  const { isTablet, isSmallDesktop } = useMediaQueries();
   const imagesContainerRef = useRef<ComponentRef<"div">>(null);
   const bottomElementRef = useRef<ComponentRef<"div">>(null);
 
@@ -29,9 +29,6 @@ export const Home = () => {
 
     let columns;
     switch (true) {
-      case isDesktop:
-        columns = 5;
-        break;
       case isSmallDesktop:
         columns = 4;
         break;
@@ -49,7 +46,7 @@ export const Home = () => {
       columnsCount: columns,
       photosColumns: generateImagesMatrix(photos, columns),
     };
-  }, [data, isTablet, isSmallDesktop, isDesktop]);
+  }, [data, isTablet, isSmallDesktop]);
 
   useEffect(() => {
     if (isFetching || !bottomElementRef.current) {

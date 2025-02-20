@@ -27,10 +27,6 @@ export const Column = styled.div`
   @media (min-width: ${breakpoints.smallDesktop}px) {
     flex-basis: 25%;
   }
-
-  @media (min-width: ${breakpoints.desktop}px) {
-    flex-basis: 20%;
-  }
 `;
 
 export const ImageWrapper = styled.div`
