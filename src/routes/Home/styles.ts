@@ -25,8 +25,20 @@ export const ImagesContainer = styled.div`
   display: flex;
 `;
 
+export const ImageWrapper = styled.div`
+  padding: 0.375rem;
+  position: relative;
+`;
+
 export const Column = styled.div`
   flex-basis: 50%;
+
+  &:first-child > ${ImageWrapper} {
+    padding-left: 0;
+  }
+  &:last-child > ${ImageWrapper} {
+    padding-right: 0;
+  }
 
   @media (min-width: ${breakpoints.tablet}px) {
     flex-basis: calc(100% / 3);
@@ -34,19 +46,6 @@ export const Column = styled.div`
 
   @media (min-width: ${breakpoints.smallDesktop}px) {
     flex-basis: 25%;
-  }
-`;
-
-export const ImageWrapper = styled.div`
-  padding: 0 0.5rem 0.5rem;
-  position: relative;
-
-  &:first-child {
-    padding-left: 0;
-  }
-
-  &:last-child {
-    padding-right: 0;
   }
 `;
 
