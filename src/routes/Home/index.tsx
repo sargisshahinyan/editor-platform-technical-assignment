@@ -6,7 +6,9 @@ import { useMediaQueries } from "../../shared/hooks/useMediaQueries";
 import { generateImagesMatrix } from "./helpers/generateImagesMatrix";
 import { getOptimizedImageProps } from "./helpers/getOptimizedImageProps";
 
-import { Column, Container, Image, ImagesContainer, ImageWrapper } from "./styles";
+import { PageSlot } from "../../shared/components/PageSlot";
+
+import { Column, Image, ImagesContainer, ImageWrapper } from "./styles";
 
 export const Home = () => {
   const { isTablet, isSmallDesktop, isDesktop } = useMediaQueries();
@@ -75,7 +77,7 @@ export const Home = () => {
   const columnWidth = (imagesContainerRef.current?.clientWidth ?? 1440) / columnsCount;
 
   return (
-    <Container>
+    <PageSlot>
       <ImagesContainer ref={imagesContainerRef}>
         {photosColumns?.map((photos, index) => (
           <Column key={index}>
@@ -88,7 +90,7 @@ export const Home = () => {
         ))}
       </ImagesContainer>
       <div ref={bottomElementRef} />
-    </Container>
+    </PageSlot>
   );
 };
 

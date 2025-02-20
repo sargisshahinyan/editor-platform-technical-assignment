@@ -1,11 +1,5 @@
 import styled from "styled-components";
 import { breakpoints } from "../../shared/data/breakpoints.ts";
-import { toRem } from "../../shared/helpers/toRem.ts";
-
-export const Container = styled.div`
-  max-width: ${toRem(breakpoints.largeDesktop)};
-  margin: 0.5rem auto;
-`;
 
 export const ImagesContainer = styled.div`
   display: flex;
