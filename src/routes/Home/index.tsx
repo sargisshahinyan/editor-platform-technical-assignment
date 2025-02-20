@@ -4,12 +4,13 @@ import { useGetCuratedPhotos } from "../../api/pexel/getCuratedPhotos/useGetCura
 import { useMediaQueries } from "../../shared/hooks/useMediaQueries";
 
 import { generateImagesMatrix } from "./helpers/generateImagesMatrix";
+import { getOptimizedImageProps } from "./helpers/getOptimizedImageProps";
 
-import { Column, Container, Image, ImageWrapper } from "./styles";
-import { getOptimizedImageProps } from "./helpers/getOptimizedImageProps.ts";
+import { Column, Container, Image, ImagesContainer, ImageWrapper } from "./styles";
 
 export const Home = () => {
   const { isTablet, isSmallDesktop, isDesktop } = useMediaQueries();
+  const imagesContainerRef = useRef<ComponentRef<"div">>(null);
   const bottomElementRef = useRef<ComponentRef<"div">>(null);
 
   const { data, isFetching, fetchNextPage } = useGetCuratedPhotos({
@@ -71,11 +72,11 @@ export const Home = () => {
     };
   }, [fetchNextPage, isFetching]);
 
-  const columnWidth = window.innerWidth / columnsCount;
+  const columnWidth = (imagesContainerRef.current?.clientWidth ?? 1440) / columnsCount;
 
   return (
-    <>
-      <Container>
+    <Container>
+      <ImagesContainer ref={imagesContainerRef}>
         {photosColumns?.map((photos, index) => (
           <Column key={index}>
             {photos.map((photo) => (
@@ -85,9 +86,9 @@ export const Home = () => {
             ))}
           </Column>
         ))}
-      </Container>
+      </ImagesContainer>
       <div ref={bottomElementRef} />
-    </>
+    </Container>
   );
 };
 

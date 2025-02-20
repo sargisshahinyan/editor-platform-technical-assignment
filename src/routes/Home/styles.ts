@@ -1,9 +1,15 @@
 import styled from "styled-components";
 import { breakpoints } from "../../shared/data/breakpoints.ts";
+import { toRem } from "../../shared/helpers/toRem.ts";
 
 export const Container = styled.div`
+  max-width: ${toRem(breakpoints.largeDesktop)};
+  margin: 0.5rem auto;
+`;
+
+export const ImagesContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  margin-top: 2rem;
 `;
 
 export const Column = styled.div`
@@ -23,11 +29,21 @@ export const Column = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
-  padding: 0 0.25rem 0.25rem;
+  padding: 0 0.5rem 0.5rem;
   position: relative;
 `;
 
 export const Image = styled.img`
   width: 100%;
   height: auto;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(1.02);
+      transform-origin: center;
+    }
+  }
 `;
