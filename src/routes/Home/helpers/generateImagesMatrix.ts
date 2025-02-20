@@ -24,10 +24,11 @@ export const generateImagesMatrix = (photos: Array<Photo>, columnsCount = 5) => 
   const matrix = Array.from({ length: columnsCount }, () => [] as Array<Photo>);
   const columnHeights = Array.from({ length: columnsCount }, () => 0);
 
-  for (const photo of normalizedPhotos) {
-    const index = smallestItemIndex(columnHeights);
-    matrix[index].push(photo);
-    columnHeights[index] += photo.height;
+  for (const [index, photo] of normalizedPhotos.entries()) {
+    const shortestColumnIndex = smallestItemIndex(columnHeights);
+    // take the original photo entry, to have the origin height value
+    matrix[shortestColumnIndex].push(photos[index]);
+    columnHeights[shortestColumnIndex] += photo.height;
   }
 
   return matrix;
