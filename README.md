@@ -8,7 +8,7 @@ to create a simple web application that will fetch images from the API and displ
 
 ## Live Demo
 
-You can find the live demo of the application [here](https://editor-platform-technical-assignment.vercel.app).
+You can find the live demo of the application [here](https://www.editor-platform-technical-assignment.xyz).
 
 ## Local Development
 
