@@ -1,12 +1,15 @@
 import { useMemo } from "react";
 
-import { useGetCuratedPhotos } from "../../api/pexel/getCuratedPhotos/useGetCuratedPhotos.ts";
+import { useGetCuratedPhotos } from "../../api/pexel/getCuratedPhotos/useGetCuratedPhotos";
+import { useMediaQueries } from "../../shared/hooks/useMediaQueries";
 
-import { generateImagesMatrix } from "./helpers/generateImagesMatrix.ts";
+import { generateImagesMatrix } from "./helpers/generateImagesMatrix";
 
 import { Column, Container, Image, ImageWrapper } from "./styles";
 
 export const Home = () => {
+  const { isTablet, isSmallDesktop, isDesktop } = useMediaQueries();
+
   const { data } = useGetCuratedPhotos({
     perPage: 25,
   });
@@ -16,10 +19,26 @@ export const Home = () => {
       return undefined;
     }
 
+    let columns;
+    switch (true) {
+      case isDesktop:
+        columns = 5;
+        break;
+      case isSmallDesktop:
+        columns = 4;
+        break;
+      case isTablet:
+        columns = 3;
+        break;
+      default:
+        columns = 2;
+        break;
+    }
+
     const photos = data.pages.flatMap((page) => page.photos);
 
-    return generateImagesMatrix(photos);
-  }, [data]);
+    return generateImagesMatrix(photos, columns);
+  }, [data, isTablet, isSmallDesktop, isDesktop]);
 
   return (
     <Container>
