@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import { lazy } from "react";
 
 const Home = lazy(() => import("./routes/Home"));
+const PhotoDetails = lazy(() => import("./routes/PhotoDetails"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,6 +19,7 @@ export function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<Home />} />
+          <Route path="/photos/:id" element={<PhotoDetails />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
