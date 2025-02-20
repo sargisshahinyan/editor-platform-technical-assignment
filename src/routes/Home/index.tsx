@@ -6,6 +6,7 @@ import { useMediaQueries } from "../../shared/hooks/useMediaQueries";
 import { generateImagesMatrix } from "./helpers/generateImagesMatrix";
 
 import { Column, Container, Image, ImageWrapper } from "./styles";
+import { getOptimizedImageProps } from "./helpers/getOptimizedImageProps.ts";
 
 export const Home = () => {
   const { isTablet, isSmallDesktop, isDesktop } = useMediaQueries();
@@ -15,9 +16,12 @@ export const Home = () => {
     perPage: 25,
   });
 
-  const photosColumns = useMemo(() => {
+  const { columnsCount, photosColumns } = useMemo(() => {
     if (!data) {
-      return undefined;
+      return {
+        columnsCount: 0,
+        photosColumns: undefined,
+      };
     }
 
     let columns;
@@ -38,7 +42,10 @@ export const Home = () => {
 
     const photos = data.pages.flatMap((page) => page.photos);
 
-    return generateImagesMatrix(photos, columns);
+    return {
+      columnsCount: columns,
+      photosColumns: generateImagesMatrix(photos, columns),
+    };
   }, [data, isTablet, isSmallDesktop, isDesktop]);
 
   useEffect(() => {
@@ -53,7 +60,7 @@ export const Home = () => {
         }
       },
       {
-        rootMargin: "110px",
+        rootMargin: "400px",
       },
     );
 
@@ -64,6 +71,8 @@ export const Home = () => {
     };
   }, [fetchNextPage, isFetching]);
 
+  const columnWidth = window.innerWidth / columnsCount;
+
   return (
     <>
       <Container>
@@ -71,12 +80,7 @@ export const Home = () => {
           <Column key={index}>
             {photos.map((photo) => (
               <ImageWrapper key={photo.id}>
-                <Image
-                  srcSet={`${photo.src.small} 768w, ${photo.src.medium} 1920w, ${photo.src.original} 2560w`}
-                  src={photo.src.medium}
-                  alt={photo.photographer}
-                  loading="lazy"
-                />
+                <Image {...getOptimizedImageProps(photo, columnWidth)} alt={photo.photographer} loading="lazy" />
               </ImageWrapper>
             ))}
           </Column>
