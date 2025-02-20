@@ -6,9 +6,9 @@ import { useMediaQueries } from "../../shared/hooks/useMediaQueries";
 import { generateImagesMatrix } from "./helpers/generateImagesMatrix";
 import { getOptimizedImageProps } from "./helpers/getOptimizedImageProps";
 
-import { PageSlot } from "../../shared/components/PageSlot";
+import picsartLogo from "../../shared/assets/picsart-logo.svg";
 
-import { Column, Image, ImagesContainer, ImageWrapper } from "./styles";
+import { Column, Container, Image, ImagesContainer, ImageWrapper, LogoImage } from "./styles";
 
 export const Home = () => {
   const { isTablet, isSmallDesktop, isDesktop } = useMediaQueries();
@@ -77,7 +77,8 @@ export const Home = () => {
   const columnWidth = (imagesContainerRef.current?.clientWidth ?? 1440) / columnsCount;
 
   return (
-    <PageSlot>
+    <Container>
+      <LogoImage src={picsartLogo} alt="Picsart logo" />
       <ImagesContainer ref={imagesContainerRef}>
         {photosColumns?.map((photos, index) => (
           <Column key={index}>
@@ -90,7 +91,7 @@ export const Home = () => {
         ))}
       </ImagesContainer>
       <div ref={bottomElementRef} />
-    </PageSlot>
+    </Container>
   );
 };
 

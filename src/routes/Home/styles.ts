@@ -1,9 +1,20 @@
 import styled from "styled-components";
-import { breakpoints } from "../../shared/data/breakpoints.ts";
+
+import { PageSlot } from "../../shared/components/PageSlot";
+
+import { breakpoints } from "../../shared/data/breakpoints";
+
+export const Container = styled(PageSlot)`
+  padding-top: 2.5rem;
+`;
+
+export const LogoImage = styled.img`
+  display: inline-block;
+  margin-bottom: 2.25rem;
+`;
 
 export const ImagesContainer = styled.div`
   display: flex;
-  margin-top: 2rem;
 `;
 
 export const Column = styled.div`
