@@ -1,4 +1,5 @@
 import { ComponentRef, useEffect, useMemo, useRef } from "react";
+import { Link } from "react-router";
 
 import { useGetCuratedPhotos } from "../../api/pexel/getCuratedPhotos/useGetCuratedPhotos";
 import { useMediaQueries } from "../../shared/hooks/useMediaQueries";
@@ -81,7 +82,9 @@ export const Home = () => {
           <Column key={index}>
             {photos.map((photo) => (
               <ImageWrapper key={photo.id}>
-                <Image {...getOptimizedImageProps(photo, columnWidth)} alt={photo.photographer} loading="lazy" />
+                <Link to={`/photos/${photo.id}`}>
+                  <Image {...getOptimizedImageProps(photo, columnWidth)} alt={photo.photographer} loading="lazy" />
+                </Link>
               </ImageWrapper>
             ))}
           </Column>

@@ -54,7 +54,6 @@ export const Image = styled.img`
   width: 100%;
   height: auto;
   border-radius: 2.25rem;
-  cursor: pointer;
 
   @media (hover: hover) {
     transition: transform 0.2s ease-in-out;
