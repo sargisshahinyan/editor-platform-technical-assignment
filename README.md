@@ -6,6 +6,10 @@ This is a technical assignment for Editor Platform's candidates.
 The assignment is
 to create a simple web application that will fetch images from the API and display them in a masonry layout.
 
+## Live Demo
+
+You can find the live demo of the application [here](https://editor-platform-technical-assignment.vercel.app).
+
 ## Local Development
 
 To start the development server, you should have a docker installed on your machine.
