@@ -8,9 +8,36 @@
     <link rel="preconnect" href="https://api.pexels.com" />
     <link rel="preconnect" href="https://images.pexels.com" />
     <title>Masonry view</title>
+    <style>
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loader-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .loader {
+        width: 3.375rem;
+        height: 3.375rem;
+        animation: spin 1s ease-in-out infinite;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="loader-wrapper">
+        <img class="loader" src="/assets/loader.svg" alt="Loading..." />
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-const rotate = keyframes`
+const spin = keyframes`
   0% {
     transform: rotate(0deg);
   }
@@ -10,7 +10,7 @@ const rotate = keyframes`
 `;
 
 export const LoaderImage = styled.img`
-  width: 50px;
-  height: 50px;
-  animation: ${rotate} 1s ease-in-out infinite;
+  width: 3.375rem;
+  height: 3.375rem;
+  animation: ${spin} 1s ease-in-out infinite;
 `;
