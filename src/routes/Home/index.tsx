@@ -41,7 +41,16 @@ export const Home = () => {
         break;
     }
 
-    const photos = data.pages.flatMap((page) => page.photos);
+    const photosIds = new Set<number>();
+    const photos = data.pages
+      .flatMap((page) => page.photos)
+      .filter((photo) => {
+        if (photosIds.has(photo.id)) {
+          return false;
+        }
+        photosIds.add(photo.id);
+        return true;
+      });
 
     return {
       columnsCount: columns,
