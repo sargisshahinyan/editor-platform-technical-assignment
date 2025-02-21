@@ -9,21 +9,11 @@ const pulse = keyframes`
   }
 `;
 
-export const PhotoElementWrapper = styled(Link)<{ width?: number; height?: number }>`
+export const PhotoElementWrapper = styled(Link)`
+  display: block;
   border-radius: 2.25rem;
   overflow: hidden;
   position: relative;
-
-  ${({ width }) =>
-    width !== undefined &&
-    css`
-      width: ${width}px;
-    `}
-  ${({ height }) =>
-    height !== undefined &&
-    css`
-      height: ${height}px;
-    `}
 `;
 
 export const Placeholder = styled.div`

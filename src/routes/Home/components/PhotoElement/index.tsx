@@ -31,7 +31,15 @@ export const PhotoElement = ({ columnWidth, photo }: { columnWidth: number; phot
   const { src, srcSet, width, height } = getOptimizedImageProps(photo, columnWidth);
 
   return (
-    <PhotoElementWrapper width={width} height={height} ref={imgWrapperRef} key={photo.id} to={`/photos/${photo.id}`}>
+    <PhotoElementWrapper
+      style={{
+        width: `${width}px`,
+        height: `${height}px`,
+      }}
+      ref={imgWrapperRef}
+      key={photo.id}
+      to={`/photos/${photo.id}`}
+    >
       {!isImageLoaded && <Placeholder />}
       {isVisible && (
         <Image
