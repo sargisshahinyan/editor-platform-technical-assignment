@@ -2,6 +2,7 @@ import { ComponentRef, useEffect, useMemo, useRef, useState } from "react";
 
 import { useGetPhotos } from "../../api/pexel/getPhotos/useGetPhotos";
 import { useMediaQueries } from "../../shared/hooks/useMediaQueries";
+import { useDebounce } from "../../shared/hooks/useDebounce";
 
 import { generateImagesMatrix } from "./helpers/generateImagesMatrix";
 
@@ -15,9 +16,13 @@ export const Home = () => {
   const imagesContainerRef = useRef<ComponentRef<"div">>(null);
   const bottomElementRef = useRef<ComponentRef<"div">>(null);
   const [imagesContainerSize, setImagesContainerSize] = useState(1440);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const searchQuery = useDebounce(searchTerm.trim(), 500);
 
   const { data, isFetching, fetchNextPage, isLoading } = useGetPhotos({
     perPage: 25,
+    query: searchQuery,
   });
 
   const { columnsCount, photosColumns } = useMemo(() => {
@@ -107,7 +112,11 @@ export const Home = () => {
     <Container>
       <Header>
         <PicsArtLogo />
-        <SearchInput placeholder="Search free high-resolution photos" />
+        <SearchInput
+          placeholder="Search free high-resolution photos"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </Header>
       {isLoading && <PageLoader />}
       <ImagesContainer ref={imagesContainerRef}>
