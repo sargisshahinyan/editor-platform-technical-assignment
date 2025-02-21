@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { Link } from "react-router";
 
 import { PageSlot } from "../../shared/components/PageSlot";
 import { Loader } from "../../shared/components/Loader";
@@ -13,17 +12,6 @@ export const Container = styled(PageSlot)`
     padding-block: 1rem;
   }
 `;
-
-export const LogoLink = styled(Link)`
-  display: inline-block;
-  margin-bottom: 2.25rem;
-
-  @media (max-width: ${breakpoints.tablet - 1}px) {
-    margin-bottom: 1rem;
-  }
-`;
-
-export const LogoImage = styled.img``;
 
 export const BackButtonWrapper = styled.div`
   margin-bottom: 2.25rem;

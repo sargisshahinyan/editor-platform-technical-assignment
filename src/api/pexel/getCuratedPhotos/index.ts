@@ -1,5 +1,5 @@
-import { apiInstance } from "../apiInstance.ts";
-import { PhotosListApiResponseSchema } from "../schemas.ts";
+import { apiInstance } from "../apiInstance";
+import { PhotosListApiResponseSchema } from "../schemas";
 
 interface GetCuratedPhotosParams {
   page?: number;

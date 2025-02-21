@@ -2,9 +2,10 @@ import { ComponentRef, useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { Link } from "react-router";
 
-import { useGetPhoto } from "../../api/pexel/getPhoto/useGetPhoto.ts";
+import { useGetPhoto } from "../../api/pexel/getPhoto/useGetPhoto";
 
-import picsartLogo from "../../shared/assets/picsart-logo.svg";
+import { PicsArtLogo } from "../../shared/components/PicsArtLogo";
+
 import leftArrow from "../../shared/assets/left-arrow.svg";
 
 import {
@@ -15,8 +16,6 @@ import {
   DetailsBlockContent,
   DetailsBlockTitle,
   DetailsWrapper,
-  LogoImage,
-  LogoLink,
   Photo,
   PhotoColor,
   PhotoDetailsWrapper,
@@ -44,9 +43,7 @@ const PhotoDetails = () => {
 
   return (
     <Container>
-      <LogoLink to="/">
-        <LogoImage src={picsartLogo} alt="Picsart logo" />
-      </LogoLink>
+      <PicsArtLogo />
       <BackButtonWrapper>
         <Link to="/">
           <BackButtonIcon src={leftArrow} alt="Back" />

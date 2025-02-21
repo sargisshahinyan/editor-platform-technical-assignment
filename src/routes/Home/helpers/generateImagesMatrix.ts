@@ -1,4 +1,4 @@
-import { Photo } from "../../../api/pexel/schemas.ts";
+import { Photo } from "../../../api/pexel/schemas";
 
 const normalizePhotos = (photos: Array<Photo>) => {
   return photos.map((photo) => ({

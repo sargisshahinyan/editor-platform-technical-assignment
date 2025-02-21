@@ -5,11 +5,10 @@ import { useMediaQueries } from "../../shared/hooks/useMediaQueries";
 
 import { generateImagesMatrix } from "./helpers/generateImagesMatrix";
 
-import picsartLogo from "../../shared/assets/picsart-logo.svg";
-
 import { PhotoElement } from "./components/PhotoElement";
+import { PicsArtLogo } from "../../shared/components/PicsArtLogo";
 
-import { Column, Container, ImagesContainer, LogoImage, PageLoader } from "./styles";
+import { Column, Container, ImagesContainer, PageLoader } from "./styles";
 
 export const Home = () => {
   const { isTablet, isSmallDesktop } = useMediaQueries();
@@ -77,7 +76,7 @@ export const Home = () => {
 
   return (
     <Container>
-      <LogoImage src={picsartLogo} alt="Picsart logo" />
+      <PicsArtLogo />
       {isLoading && <PageLoader />}
       <ImagesContainer ref={imagesContainerRef}>
         {photosColumns?.map((photos, index) => (

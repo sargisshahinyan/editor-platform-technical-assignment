@@ -1,6 +1,6 @@
 import { ComponentRef, useEffect, useRef, useState } from "react";
 
-import { Photo } from "../../../../api/pexel/schemas.ts";
+import { Photo } from "../../../../api/pexel/schemas";
 
 import { getOptimizedImageProps } from "../../helpers/getOptimizedImageProps";
 

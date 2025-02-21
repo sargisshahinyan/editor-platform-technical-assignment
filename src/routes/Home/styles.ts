@@ -23,15 +23,6 @@ export const PageLoader = styled(Loader)`
   transform: translate(-50%, -50%);
 `;
 
-export const LogoImage = styled.img`
-  display: inline-block;
-  margin-bottom: 2.25rem;
-
-  @media (max-width: ${breakpoints.tablet}px) {
-    margin-bottom: 1rem;
-  }
-`;
-
 export const ImagesContainer = styled.div`
   display: flex;
   gap: 0.75rem;
