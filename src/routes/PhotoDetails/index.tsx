@@ -69,6 +69,7 @@ const PhotoDetails = () => {
               onLoad={() => {
                 setIsImageLoaded(true);
               }}
+              alt={photo.alt}
             />
           )}
           {!isImageLoaded && <PhotoLoader />}
