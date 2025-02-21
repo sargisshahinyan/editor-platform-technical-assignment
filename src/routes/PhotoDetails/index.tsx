@@ -42,6 +42,8 @@ const PhotoDetails = () => {
     return null;
   }
 
+  const height =
+    imageWrapperRef.current && photo ? photo.height / (photo.width / imageWrapperRef.current.offsetWidth) : undefined;
   return (
     <Container>
       <Header>
@@ -54,14 +56,7 @@ const PhotoDetails = () => {
       </BackButtonWrapper>
       {isLoading && <PhotoLoader top="40%" />}
       <PhotoDetailsWrapper hidden={isLoading}>
-        <PhotoWrapper
-          ref={imageWrapperRef}
-          height={
-            imageWrapperRef.current && photo
-              ? photo.height / (photo.width / imageWrapperRef.current.offsetWidth)
-              : undefined
-          }
-        >
+        <PhotoWrapper ref={imageWrapperRef} height={height}>
           {photo && (
             <Photo
               hidden={!isImageLoaded}
@@ -70,6 +65,7 @@ const PhotoDetails = () => {
                 setIsImageLoaded(true);
               }}
               alt={photo.alt}
+              height={height}
             />
           )}
           {!isImageLoaded && <PhotoLoader />}
