@@ -16,6 +16,7 @@ import {
   DetailsBlockContent,
   DetailsBlockTitle,
   DetailsWrapper,
+  Header,
   Photo,
   PhotoColor,
   PhotoDetailsWrapper,
@@ -43,7 +44,9 @@ const PhotoDetails = () => {
 
   return (
     <Container>
-      <PicsArtLogo />
+      <Header>
+        <PicsArtLogo />
+      </Header>
       <BackButtonWrapper>
         <Link to="/">
           <BackButtonIcon src={leftArrow} alt="Back" />

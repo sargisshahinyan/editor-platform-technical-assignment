@@ -12,6 +12,13 @@ export const Container = styled(PageSlot)`
     padding-block: 1rem;
   }
 `;
+export const Header = styled.header`
+  margin-bottom: 2.25rem;
+
+  @media (max-width: ${breakpoints.tablet - 1}px) {
+    margin-bottom: 1rem;
+  }
+`;
 
 export const BackButtonWrapper = styled.div`
   margin-bottom: 2.25rem;
