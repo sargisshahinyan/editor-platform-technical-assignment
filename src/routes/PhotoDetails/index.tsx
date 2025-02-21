@@ -27,6 +27,7 @@ import {
 const PhotoDetails = () => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const navigate = useNavigate();
+  const [imagesWrapperWidth, setImagesWrapperWidth] = useState<number | undefined>(0);
   const imageWrapperRef = useRef<ComponentRef<"div">>(null);
   const { id } = useParams<{ id: string }>();
   const { data: photo, isError, isLoading } = useGetPhoto(id ? parseInt(id, 10) : undefined);
@@ -38,12 +39,31 @@ const PhotoDetails = () => {
     }
   }, [id, navigate, isError]);
 
+  useEffect(() => {
+    if (!imageWrapperRef.current) {
+      return;
+    }
+
+    setImagesWrapperWidth(imageWrapperRef.current.clientWidth);
+    const resizeObserver = new ResizeObserver(() => {
+      if (!imageWrapperRef.current) {
+        return;
+      }
+
+      setImagesWrapperWidth(imageWrapperRef.current.clientWidth);
+    });
+    resizeObserver.observe(imageWrapperRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
   if (!id) {
     return null;
   }
 
-  const height =
-    imageWrapperRef.current && photo ? photo.height / (photo.width / imageWrapperRef.current.offsetWidth) : undefined;
+  const height = imagesWrapperWidth && photo ? photo.height / (photo.width / imagesWrapperWidth) : undefined;
   return (
     <Container>
       <Header>
