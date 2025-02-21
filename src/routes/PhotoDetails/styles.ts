@@ -46,6 +46,8 @@ export const PhotoWrapper = styled.div<{ height?: number }>`
   flex: 2;
   background-color: #f1f1f1;
   position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
 
   @media (max-width: ${breakpoints.tablet - 1}px) {
     flex: auto;
@@ -67,7 +69,6 @@ export const PhotoLoader = styled(Loader)<{ top?: string }>`
 `;
 
 export const Photo = styled.img<{ hidden?: boolean }>`
-  border-radius: 1rem;
   max-width: 100%;
   ${(props) =>
     props.hidden &&
