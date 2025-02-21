@@ -1,9 +1,19 @@
 import { Link } from "react-router";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 import { breakpoints } from "../../../../shared/data/breakpoints";
 
+const pulse = keyframes`
+  50% {
+    opacity: 0.5;
+  }
+`;
+
 export const PhotoElementWrapper = styled(Link)<{ width?: number; height?: number }>`
+  border-radius: 2.25rem;
+  overflow: hidden;
+  position: relative;
+
   ${({ width }) =>
     width !== undefined &&
     css`
@@ -16,10 +26,24 @@ export const PhotoElementWrapper = styled(Link)<{ width?: number; height?: numbe
     `}
 `;
 
-export const Image = styled.img`
+export const Placeholder = styled.div`
+  animation: ${pulse} 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #d9d9d9;
+`;
+
+export const Image = styled.img<{ $transparent?: boolean }>`
   width: 100%;
   height: auto;
-  border-radius: 2.25rem;
+  ${({ $transparent }) =>
+    $transparent &&
+    css`
+      opacity: 0;
+    `}
   vertical-align: bottom;
 
   @media (hover: hover) {

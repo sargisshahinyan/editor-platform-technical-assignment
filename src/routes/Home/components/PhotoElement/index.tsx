@@ -4,16 +4,22 @@ import { Photo } from "../../../../api/pexel/schemas";
 
 import { getOptimizedImageProps } from "../../helpers/getOptimizedImageProps";
 
-import { Image, PhotoElementWrapper } from "./styles";
+import { Image, PhotoElementWrapper, Placeholder } from "./styles";
 
 export const PhotoElement = ({ columnWidth, photo }: { columnWidth: number; photo: Photo }) => {
   const imgWrapperRef = useRef<ComponentRef<"a">>(null);
   const [isVisible, setIsVisible] = useState(true);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsVisible(entry.isIntersecting);
+        const isVisible = entry.isIntersecting;
+
+        setIsVisible(isVisible);
+        if (!isVisible) {
+          setIsImageLoaded(false);
+        }
       },
       { rootMargin: "500px 0px 500px 0px" },
     );
@@ -26,7 +32,18 @@ export const PhotoElement = ({ columnWidth, photo }: { columnWidth: number; phot
 
   return (
     <PhotoElementWrapper width={width} height={height} ref={imgWrapperRef} key={photo.id} to={`/photos/${photo.id}`}>
-      {isVisible && <Image src={src} srcSet={srcSet} width={width} height={height} alt={photo.photographer} />}
+      {!isImageLoaded && <Placeholder />}
+      {isVisible && (
+        <Image
+          $transparent={!isImageLoaded}
+          onLoad={() => setIsImageLoaded(true)}
+          src={src}
+          srcSet={srcSet}
+          width={width}
+          height={height}
+          alt={photo.photographer}
+        />
+      )}
     </PhotoElementWrapper>
   );
 };
