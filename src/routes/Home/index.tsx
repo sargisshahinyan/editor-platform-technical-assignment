@@ -1,4 +1,4 @@
-import { ComponentRef, useEffect, useMemo, useRef } from "react";
+import { ComponentRef, useEffect, useMemo, useRef, useState } from "react";
 
 import { useGetCuratedPhotos } from "../../api/pexel/getCuratedPhotos/useGetCuratedPhotos";
 import { useMediaQueries } from "../../shared/hooks/useMediaQueries";
@@ -14,6 +14,7 @@ export const Home = () => {
   const { isTablet, isSmallDesktop } = useMediaQueries();
   const imagesContainerRef = useRef<ComponentRef<"div">>(null);
   const bottomElementRef = useRef<ComponentRef<"div">>(null);
+  const [imagesContainerSize, setImagesContainerSize] = useState(1440);
 
   const { data, isFetching, fetchNextPage, isLoading } = useGetCuratedPhotos({
     perPage: 25,
@@ -71,8 +72,27 @@ export const Home = () => {
     };
   }, [fetchNextPage, isFetching]);
 
+  useEffect(() => {
+    if (!imagesContainerRef.current) {
+      return;
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      if (!imagesContainerRef.current) {
+        return;
+      }
+
+      setImagesContainerSize(imagesContainerRef.current.clientWidth);
+    });
+    resizeObserver.observe(imagesContainerRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
   const gap = 12;
-  const columnWidth = ((imagesContainerRef.current?.clientWidth ?? 1440) - gap * (columnsCount - 1)) / columnsCount;
+  const columnWidth = (imagesContainerSize - gap * (columnsCount - 1)) / columnsCount;
 
   return (
     <Container>
