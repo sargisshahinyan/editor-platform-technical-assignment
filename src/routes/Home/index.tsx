@@ -1,6 +1,6 @@
 import { ComponentRef, useEffect, useMemo, useRef, useState } from "react";
 
-import { useGetCuratedPhotos } from "../../api/pexel/getCuratedPhotos/useGetCuratedPhotos";
+import { useGetPhotos } from "../../api/pexel/getPhotos/useGetPhotos";
 import { useMediaQueries } from "../../shared/hooks/useMediaQueries";
 
 import { generateImagesMatrix } from "./helpers/generateImagesMatrix";
@@ -16,7 +16,7 @@ export const Home = () => {
   const bottomElementRef = useRef<ComponentRef<"div">>(null);
   const [imagesContainerSize, setImagesContainerSize] = useState(1440);
 
-  const { data, isFetching, fetchNextPage, isLoading } = useGetCuratedPhotos({
+  const { data, isFetching, fetchNextPage, isLoading } = useGetPhotos({
     perPage: 25,
   });
 
