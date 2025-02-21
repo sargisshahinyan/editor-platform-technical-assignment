@@ -48,7 +48,7 @@ const PhotoDetails = () => {
         <PicsArtLogo />
       </Header>
       <BackButtonWrapper>
-        <Link to="/">
+        <Link to="/" aria-label="Back">
           <BackButtonIcon src={leftArrow} alt="Back" />
         </Link>
       </BackButtonWrapper>

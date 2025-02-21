@@ -39,6 +39,7 @@ export const PhotoElement = ({ columnWidth, photo }: { columnWidth: number; phot
       ref={imgWrapperRef}
       key={photo.id}
       to={`/photos/${photo.id}`}
+      aria-label={photo.alt}
     >
       {!isImageLoaded && <Placeholder />}
       {isVisible && (
