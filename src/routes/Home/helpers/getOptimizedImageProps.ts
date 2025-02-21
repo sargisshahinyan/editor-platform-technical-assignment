@@ -14,7 +14,7 @@ const addOptimisationParams = (url: string, width: number) => {
 export const getOptimizedImageProps = (photo: Photo, width: number) => {
   const src = photo.src.medium;
   const originalUrl = photo.src.original;
-  const srcSet = Object.values(breakpoints)
+  const srcSet = [480, ...Object.values(breakpoints)]
     .map((breakpoint) => `${addOptimisationParams(originalUrl, breakpoint)} ${breakpoint}w`)
     .join(",");
 
