@@ -3,13 +3,23 @@ import styled from "styled-components";
 import { PageSlot } from "../../shared/components/PageSlot";
 
 import { breakpoints } from "../../shared/data/breakpoints";
+import { Loader } from "../../shared/components/Loader";
 
 export const Container = styled(PageSlot)`
   padding-top: 2.5rem;
+  position: relative;
+  min-height: 100vh;
 
   @media (max-width: ${breakpoints.tablet - 1}px) {
     padding-top: 1rem;
   }
+`;
+
+export const PageLoader = styled(Loader)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const LogoImage = styled.img`

@@ -9,14 +9,14 @@ import { getOptimizedImageProps } from "./helpers/getOptimizedImageProps";
 
 import picsartLogo from "../../shared/assets/picsart-logo.svg";
 
-import { Column, Container, Image, ImagesContainer, ImageWrapper, LogoImage } from "./styles";
+import { Column, Container, Image, ImagesContainer, ImageWrapper, LogoImage, PageLoader } from "./styles";
 
 export const Home = () => {
   const { isTablet, isSmallDesktop } = useMediaQueries();
   const imagesContainerRef = useRef<ComponentRef<"div">>(null);
   const bottomElementRef = useRef<ComponentRef<"div">>(null);
 
-  const { data, isFetching, fetchNextPage } = useGetCuratedPhotos({
+  const { data, isFetching, fetchNextPage, isLoading } = useGetCuratedPhotos({
     perPage: 25,
   });
 
@@ -77,6 +77,7 @@ export const Home = () => {
   return (
     <Container>
       <LogoImage src={picsartLogo} alt="Picsart logo" />
+      {isLoading && <PageLoader />}
       <ImagesContainer ref={imagesContainerRef}>
         {photosColumns?.map((photos, index) => (
           <Column key={index}>
