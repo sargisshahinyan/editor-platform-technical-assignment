@@ -1,9 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { Link } from "react-router";
 
 import { PageSlot } from "../../shared/components/PageSlot";
+import { Loader } from "../../shared/components/Loader";
 
 import { breakpoints } from "../../shared/data/breakpoints";
-import { Link } from "react-router";
 
 export const Container = styled(PageSlot)`
   padding-block: 2.5rem;
@@ -37,7 +38,7 @@ export const BackButtonIcon = styled.img`
   height: 0.75rem;
 `;
 
-export const PhotoDetailsWrapper = styled.div`
+export const PhotoDetailsWrapper = styled.div<{ hidden?: boolean }>`
   display: flex;
   gap: 3.75rem;
 
@@ -45,15 +46,46 @@ export const PhotoDetailsWrapper = styled.div`
     flex-direction: column;
     gap: 1.5rem;
   }
+
+  ${(props) =>
+    props.hidden &&
+    css`
+      visibility: hidden;
+    `}
 `;
 
-export const PhotoWrapper = styled.div`
+export const PhotoWrapper = styled.div<{ height?: number }>`
   flex: 2;
+  background-color: #f1f1f1;
+  position: relative;
+
+  @media (max-width: ${breakpoints.tablet - 1}px) {
+    flex: auto;
+  }
+
+  ${(props) =>
+    props.height &&
+    css`
+      height: ${props.height}px;
+    `}
 `;
 
-export const Photo = styled.img`
+export const PhotoLoader = styled(Loader)<{ top?: string }>`
+  position: absolute;
+  top: ${(props) => (props.top ? props.top : css`min(50%, 10rem)`)};
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+`;
+
+export const Photo = styled.img<{ hidden?: boolean }>`
   border-radius: 1rem;
   max-width: 100%;
+  ${(props) =>
+    props.hidden &&
+    css`
+      opacity: 0;
+    `}
 `;
 
 export const DetailsWrapper = styled.div`
@@ -61,6 +93,10 @@ export const DetailsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+
+  @media (max-width: ${breakpoints.tablet - 1}px) {
+    flex: auto;
+  }
 `;
 
 export const DetailsBlock = styled.div`
@@ -77,7 +113,7 @@ export const DetailsBlockTitle = styled.h3`
   margin-bottom: 0.25rem;
 `;
 
-export const DetailsBlockContent = styled.p`
+export const DetailsBlockContent = styled.div`
   font-size: 1rem;
   font-family: "Gilroy", sans-serif;
   font-weight: 300;

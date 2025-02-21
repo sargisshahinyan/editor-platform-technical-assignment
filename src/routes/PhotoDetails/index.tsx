@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { ComponentRef, useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { Link } from "react-router";
 
@@ -20,13 +20,16 @@ import {
   Photo,
   PhotoColor,
   PhotoDetailsWrapper,
+  PhotoLoader,
   PhotoWrapper,
 } from "./styles";
 
 const PhotoDetails = () => {
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const navigate = useNavigate();
+  const imageWrapperRef = useRef<ComponentRef<"div">>(null);
   const { id } = useParams<{ id: string }>();
-  const { data: photo, isError } = useGetPhoto(id ? parseInt(id, 10) : undefined);
+  const { data: photo, isError, isLoading } = useGetPhoto(id ? parseInt(id, 10) : undefined);
 
   useEffect(() => {
     if (!id || isError) {
@@ -35,7 +38,7 @@ const PhotoDetails = () => {
     }
   }, [id, navigate, isError]);
 
-  if (!id || !photo) {
+  if (!id) {
     return null;
   }
 
@@ -49,34 +52,53 @@ const PhotoDetails = () => {
           <BackButtonIcon src={leftArrow} alt="Back" />
         </Link>
       </BackButtonWrapper>
-      <PhotoDetailsWrapper>
-        <PhotoWrapper>
-          <Photo src={photo.src.original} />
+      {isLoading && <PhotoLoader top="40%" />}
+      <PhotoDetailsWrapper hidden={isLoading}>
+        <PhotoWrapper
+          ref={imageWrapperRef}
+          height={
+            imageWrapperRef.current && photo
+              ? photo.height / (photo.width / imageWrapperRef.current.offsetWidth)
+              : undefined
+          }
+        >
+          {photo && (
+            <Photo
+              hidden={!isImageLoaded}
+              src={photo.src.original}
+              onLoad={() => {
+                setIsImageLoaded(true);
+              }}
+            />
+          )}
+          {!isImageLoaded && <PhotoLoader />}
         </PhotoWrapper>
         <DetailsWrapper>
           <DetailsBlock>
             <DetailsBlockTitle>Photographer</DetailsBlockTitle>
-            <DetailsBlockContent>{photo.photographer}</DetailsBlockContent>
+            <DetailsBlockContent>{photo?.photographer}</DetailsBlockContent>
           </DetailsBlock>
           <DetailsBlock>
             <DetailsBlockTitle>Photographer URL</DetailsBlockTitle>
             <DetailsBlockContent>
-              <a href={photo.photographerUrl} target="_blank" rel="noreferrer">
-                {photo.photographerUrl}
+              <a href={photo?.photographerUrl} target="_blank" rel="noreferrer">
+                {photo?.photographerUrl}
               </a>
             </DetailsBlockContent>
           </DetailsBlock>
           <DetailsBlock>
             <DetailsBlockTitle>Size</DetailsBlockTitle>
-            <DetailsBlockContent>
-              {photo.width} x {photo.height}
-            </DetailsBlockContent>
+            <DetailsBlockContent>{photo && `${photo.width} x ${photo.height}`}</DetailsBlockContent>
           </DetailsBlock>
           <DetailsBlock>
             <DetailsBlockTitle>Photo average color</DetailsBlockTitle>
             <DetailsBlockContent>
-              <PhotoColor color={photo.avgColor} />
-              {photo.avgColor}
+              {photo && (
+                <>
+                  <PhotoColor color={photo.avgColor} />
+                  {photo.avgColor}
+                </>
+              )}
             </DetailsBlockContent>
           </DetailsBlock>
         </DetailsWrapper>
