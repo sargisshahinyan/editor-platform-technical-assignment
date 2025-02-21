@@ -52,23 +52,3 @@ export const Column = styled.div`
     flex-basis: 25%;
   }
 `;
-
-export const Image = styled.img`
-  width: 100%;
-  height: auto;
-  border-radius: 2.25rem;
-  vertical-align: bottom;
-
-  @media (hover: hover) {
-    transition: transform 0.2s ease-in-out;
-
-    &:hover {
-      transform: scale(1.02);
-      transform-origin: center;
-    }
-  }
-
-  @media (max-width: ${breakpoints.tablet - 1}px) {
-    border-radius: 1.5rem;
-  }
-`;

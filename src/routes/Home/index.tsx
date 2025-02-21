@@ -1,15 +1,15 @@
 import { ComponentRef, useEffect, useMemo, useRef } from "react";
-import { Link } from "react-router";
 
 import { useGetCuratedPhotos } from "../../api/pexel/getCuratedPhotos/useGetCuratedPhotos";
 import { useMediaQueries } from "../../shared/hooks/useMediaQueries";
 
 import { generateImagesMatrix } from "./helpers/generateImagesMatrix";
-import { getOptimizedImageProps } from "./helpers/getOptimizedImageProps";
 
 import picsartLogo from "../../shared/assets/picsart-logo.svg";
 
-import { Column, Container, Image, ImagesContainer, LogoImage, PageLoader } from "./styles";
+import { PhotoElement } from "./components/PhotoElement";
+
+import { Column, Container, ImagesContainer, LogoImage, PageLoader } from "./styles";
 
 export const Home = () => {
   const { isTablet, isSmallDesktop } = useMediaQueries();
@@ -83,9 +83,7 @@ export const Home = () => {
         {photosColumns?.map((photos, index) => (
           <Column key={index}>
             {photos.map((photo) => (
-              <Link key={photo.id} to={`/photos/${photo.id}`}>
-                <Image {...getOptimizedImageProps(photo, columnWidth)} alt={photo.photographer} loading="lazy" />
-              </Link>
+              <PhotoElement key={photo.id} columnWidth={columnWidth} photo={photo} />
             ))}
           </Column>
         ))}
