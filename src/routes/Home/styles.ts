@@ -9,6 +9,7 @@ export const Container = styled(PageSlot)`
   padding-top: 2.5rem;
   position: relative;
   min-height: 100vh;
+  box-sizing: content-box;
 
   @media (max-width: ${breakpoints.tablet - 1}px) {
     padding-top: 1rem;
@@ -33,22 +34,15 @@ export const LogoImage = styled.img`
 
 export const ImagesContainer = styled.div`
   display: flex;
-`;
-
-export const ImageWrapper = styled.div`
-  padding: 0.375rem;
-  position: relative;
+  gap: 0.75rem;
 `;
 
 export const Column = styled.div`
-  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 
-  &:first-child > ${ImageWrapper} {
-    padding-left: 0;
-  }
-  &:last-child > ${ImageWrapper} {
-    padding-right: 0;
-  }
+  flex-basis: 50%;
 
   @media (min-width: ${breakpoints.tablet}px) {
     flex-basis: calc(100% / 3);
@@ -63,6 +57,7 @@ export const Image = styled.img`
   width: 100%;
   height: auto;
   border-radius: 2.25rem;
+  vertical-align: bottom;
 
   @media (hover: hover) {
     transition: transform 0.2s ease-in-out;

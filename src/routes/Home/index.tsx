@@ -9,7 +9,7 @@ import { getOptimizedImageProps } from "./helpers/getOptimizedImageProps";
 
 import picsartLogo from "../../shared/assets/picsart-logo.svg";
 
-import { Column, Container, Image, ImagesContainer, ImageWrapper, LogoImage, PageLoader } from "./styles";
+import { Column, Container, Image, ImagesContainer, LogoImage, PageLoader } from "./styles";
 
 export const Home = () => {
   const { isTablet, isSmallDesktop } = useMediaQueries();
@@ -23,7 +23,7 @@ export const Home = () => {
   const { columnsCount, photosColumns } = useMemo(() => {
     if (!data) {
       return {
-        columnsCount: 0,
+        columnsCount: 1,
         photosColumns: undefined,
       };
     }
@@ -72,7 +72,8 @@ export const Home = () => {
     };
   }, [fetchNextPage, isFetching]);
 
-  const columnWidth = (imagesContainerRef.current?.clientWidth ?? 1440) / columnsCount;
+  const gap = 12;
+  const columnWidth = ((imagesContainerRef.current?.clientWidth ?? 1440) - gap * (columnsCount - 1)) / columnsCount;
 
   return (
     <Container>
@@ -82,11 +83,9 @@ export const Home = () => {
         {photosColumns?.map((photos, index) => (
           <Column key={index}>
             {photos.map((photo) => (
-              <ImageWrapper key={photo.id}>
-                <Link to={`/photos/${photo.id}`}>
-                  <Image {...getOptimizedImageProps(photo, columnWidth)} alt={photo.photographer} loading="lazy" />
-                </Link>
-              </ImageWrapper>
+              <Link key={photo.id} to={`/photos/${photo.id}`}>
+                <Image {...getOptimizedImageProps(photo, columnWidth)} alt={photo.photographer} loading="lazy" />
+              </Link>
             ))}
           </Column>
         ))}
