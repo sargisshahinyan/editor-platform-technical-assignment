@@ -16,6 +16,31 @@ export const Container = styled(PageSlot)`
   }
 `;
 
+export const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.25rem;
+  max-width: 40rem;
+
+  @media (max-width: ${breakpoints.tablet - 1}px) {
+    margin-bottom: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+`;
+
+export const SearchInput = styled.input`
+  width: 20rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid #e0e0e0;
+  font-size: 1rem;
+  font-family: "Gilroy", sans-serif;
+  font-weight: 300;
+`;
+
 export const PageLoader = styled(Loader)`
   position: absolute;
   top: 50%;

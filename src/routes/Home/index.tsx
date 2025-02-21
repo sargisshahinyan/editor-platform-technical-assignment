@@ -8,7 +8,7 @@ import { generateImagesMatrix } from "./helpers/generateImagesMatrix";
 import { PhotoElement } from "./components/PhotoElement";
 import { PicsArtLogo } from "../../shared/components/PicsArtLogo";
 
-import { Column, Container, ImagesContainer, PageLoader } from "./styles";
+import { Column, Container, Header, ImagesContainer, PageLoader, SearchInput } from "./styles";
 
 export const Home = () => {
   const { isTablet, isSmallDesktop } = useMediaQueries();
@@ -105,7 +105,10 @@ export const Home = () => {
 
   return (
     <Container>
-      <PicsArtLogo />
+      <Header>
+        <PicsArtLogo />
+        <SearchInput placeholder="Search free high-resolution photos" />
+      </Header>
       {isLoading && <PageLoader />}
       <ImagesContainer ref={imagesContainerRef}>
         {photosColumns?.map((photos, index) => (
