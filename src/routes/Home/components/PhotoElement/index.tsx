@@ -50,6 +50,7 @@ export const PhotoElement = ({ columnWidth, photo }: { columnWidth: number; phot
           srcSet={srcSet}
           width={width}
           height={height}
+          sizes="(max-width: 767px) 50vw, (min-width: 768px) and (max-width: 1024px) 33.3vw, 25vw"
           alt={photo.photographer}
         />
       )}
