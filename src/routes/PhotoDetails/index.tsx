@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import { useGetPhoto } from "../../api/pexel/getPhoto/useGetPhoto";
 
 import { PicsArtLogo } from "../../shared/components/PicsArtLogo";
+import { Loader } from "../../shared/components/Loader";
 
 import leftArrow from "../../shared/assets/left-arrow.svg";
 
@@ -20,7 +21,7 @@ import {
   Photo,
   PhotoColor,
   PhotoDetailsWrapper,
-  PhotoLoader,
+  PhotoLoaderWrapper,
   PhotoWrapper,
 } from "./styles";
 
@@ -74,7 +75,11 @@ const PhotoDetails = () => {
           <BackButtonIcon src={leftArrow} alt="Back" />
         </Link>
       </BackButtonWrapper>
-      {isLoading && <PhotoLoader top="40%" />}
+      {isLoading && (
+        <PhotoLoaderWrapper>
+          <Loader />
+        </PhotoLoaderWrapper>
+      )}
       <PhotoDetailsWrapper hidden={isLoading}>
         <PhotoWrapper ref={imageWrapperRef} height={height}>
           {photo && (
@@ -88,7 +93,11 @@ const PhotoDetails = () => {
               height={height}
             />
           )}
-          {!isImageLoaded && <PhotoLoader />}
+          {!isImageLoaded && (
+            <PhotoLoaderWrapper>
+              <Loader />
+            </PhotoLoaderWrapper>
+          )}
         </PhotoWrapper>
         <DetailsWrapper>
           <DetailsBlock>

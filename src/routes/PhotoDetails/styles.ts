@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 
 import { PageSlot } from "../../shared/components/PageSlot";
-import { Loader } from "../../shared/components/Loader";
 
 import { breakpoints } from "../../shared/data/breakpoints";
 
@@ -67,12 +66,17 @@ export const PhotoWrapper = styled.div<{ height?: number }>`
     `}
 `;
 
-export const PhotoLoader = styled(Loader)<{ top?: string }>`
+export const PhotoLoaderWrapper = styled.div<{ top?: string }>`
   position: absolute;
-  top: ${(props) => (props.top ? props.top : css`min(50%, 10rem)`)};
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
   z-index: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Photo = styled.img<{ hidden?: boolean }>`
